@@ -8,6 +8,7 @@ public class Sample {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		//Sysout 
 		String str = "10";
 	
 		String[] name = {"zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"};
