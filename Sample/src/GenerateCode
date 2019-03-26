@@ -1,18 +1,18 @@
 package com.info;
 
 class Hello{
-	public static void main(String args[]){
-		
-		
+	
+
 		
 		String entity = "User";
 		String sentity = entity.toLowerCase();
+		String semicolon =";";
 		
-		String subinterface1 = "getAll"+entity+"s()";
-		String subinterface2 = "get"+entity+"ById(Long "+" "+sentity+"Id)";
-		String subinterface3 = "save"+entity+"("+entity+" "+sentity+")";
-		String subinterface4 = "update"+entity+"("+entity+" "+sentity+")";
-		String subinterface5 = "delete"+entity+"("+entity+" "+sentity+")";
+		String subinterface1 = "getAll"+entity+"s()"+semicolon;
+		String subinterface2 = "get"+entity+"ById(Long "+" "+sentity+"Id)"+semicolon;
+		String subinterface3 = "save"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
+		String subinterface4 = "update"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
+		String subinterface5 = "delete"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
 		
 		
 		String interface1 = "List<"+entity+"> "+ subinterface1;
@@ -69,8 +69,7 @@ System.out.println(
 
 	
 
-
-	}
+	
 }
 
 
