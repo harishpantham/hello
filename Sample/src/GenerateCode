@@ -3,7 +3,9 @@ package com.info;
 class Hello{
 	public static void main(String args[]){
 		
-		String entity = "Product";
+		
+		
+		String entity = "User";
 		String sentity = entity.toLowerCase();
 		
 		String subinterface1 = "getAll"+entity+"s()";
@@ -65,11 +67,7 @@ System.out.println(
 
 
 
-	}
-}
-
-
-
+	
 
 
 	}
