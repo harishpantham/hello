@@ -4,6 +4,7 @@ class Hello{
 	
 
 		
+		
 		String entity = "User";
 		String sentity = entity.toLowerCase();
 		String semicolon =";";
@@ -12,14 +13,19 @@ class Hello{
 		String subinterface2 = "get"+entity+"ById(Long "+" "+sentity+"Id)"+semicolon;
 		String subinterface3 = "save"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
 		String subinterface4 = "update"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
-		String subinterface5 = "delete"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
+		String subinterface5 = "delete"+entity+"(Long "+" "+sentity+"Id)"+semicolon;
 		
 		
-		String interface1 = "List<"+entity+"> "+ subinterface1;
+		/*String interface1 = "List<"+entity+"> "+ subinterface1;
 		String interface2 = "Optional<"+entity+"> "+subinterface2;
 		String interface3 = entity+" "+subinterface3;
 		String interface4 = entity+" "+subinterface4;
-		String interface5 = "void"+" "+subinterface5;
+		String interface5 = "void"+" "+subinterface5;*/
+		String interface1 ="YanResponse"+" "+subinterface1;
+		String interface2 ="YanResponse"+" "+subinterface2;
+		String interface3 ="YanResponse"+" "+subinterface3;
+		String interface4 ="YanResponse"+" "+subinterface4;
+		String interface5 ="YanResponse"+" "+subinterface5;
 		
 System.out.println(interface1);				
 System.out.println(interface2);			
@@ -36,7 +42,7 @@ System.out.println(
 		"    @Autowired\r\n" + 
 		"    "+entity+"ServiceI "+sentity+"ServiceI;\r\n" + 
 		"\r\n" + 
-		"    @GetMapping(\"/"+sentity+"\")\r\n" + 
+		"    @GetMapping(\"/"+sentity+"s"+"\")\r\n" + 
 		"    public "+"List<"+entity+"> "+" "+subinterface1+" {\r\n" + 
 		"        return "+sentity+"ServiceI."+subinterface1+";"+"\r\n" +
 		"    }\r\n" + 
@@ -68,7 +74,6 @@ System.out.println(
 
 
 	
-
 	
 }
 
