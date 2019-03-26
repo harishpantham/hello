@@ -1,0 +1,68 @@
+package com.info;
+
+class Hello{
+	public static void main(String args[]){
+		
+		String entity = "Product";
+		String sentity = entity.toLowerCase();
+		
+		String subinterface1 = "getAll"+entity+"s()";
+		String subinterface2 = "get"+entity+"ById(Long "+" "+sentity+"Id)";
+		String subinterface3 = "save"+entity+"("+entity+" "+sentity+")";
+		String subinterface4 = "update"+entity+"("+entity+" "+sentity+")";
+		String subinterface5 = "delete"+entity+"("+entity+" "+sentity+")";
+		
+		
+		String interface1 = "List<"+entity+"> "+ subinterface1;
+		String interface2 = "Optional<"+entity+"> "+subinterface2;
+		String interface3 = entity+" "+subinterface3;
+		String interface4 = entity+" "+subinterface4;
+		String interface5 = "void"+" "+subinterface5;
+		
+System.out.println(interface1);				
+System.out.println(interface2);			
+System.out.println(interface3);			
+System.out.println(interface4);			
+System.out.println(interface5);			
+
+System.out.println(
+		"@RestController()\r\n" + 
+		"@RequestMapping(\"api\")\r\n" + 
+		"public class "+entity+"Controller {\r\n" + 
+		"\r\n" + 
+		"    @Autowired\r\n" + 
+		"    "+entity+"ServiceI "+sentity+"ServiceI;\r\n" + 
+		"\r\n" + 
+		"    @GetMapping(\"/"+sentity+"\")\r\n" + 
+		"    public YanResponse "+subinterface1+" {\r\n" + 
+		"        return "+sentity+"ServiceI."+subinterface1+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @GetMapping(\"/"+sentity+"s/{"+sentity+"Id}\")\r\n" + 
+		"    public YanResponse get"+entity+"ById(@PathVariable Long "+sentity+"Id) {\r\n" + 
+		"        return "+sentity+"ServiceI."+subinterface2+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @PostMapping(\"/"+sentity+"s\")\r\n" + 
+		"    public YanResponse save"+entity+"(@RequestBody "+entity+"DTO "+sentity+"DTO) {\r\n" + 
+		"        return "+sentity+"ServiceI."+subinterface3+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @PutMapping(\"/"+sentity+"s/{"+sentity+"Id}\")\r\n" + 
+		"    public YanResponse update"+entity+"(@RequestBody "+entity+"DTO "+sentity+"DTO) {\r\n" + 
+		"        return "+sentity+"ServiceI."+subinterface4+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @DeleteMapping(\"/"+sentity+"s/{"+sentity+"Id}\")\r\n" + 
+		"    public YanResponse delete"+entity+"(@PathVariable Long "+sentity+"Id) {\r\n" + 
+		"        return "+sentity+"ServiceI."+subinterface5+"\r\n" + 
+		"    }\r\n" + 
+		"}");
+
+
+
+
+
+
+	}
+}
