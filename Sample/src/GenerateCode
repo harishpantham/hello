@@ -211,5 +211,329 @@ System.out.println(
 
 	}
 	
+====================================================
+
+
+	
+	@Id
+	long productId;
+	String productName;
+	String startDate;
+	String endDate;
+	float actualPrice;
+	float offerPrice;
+	@ManyToOne
+	@JoinColumn(name = "shopId")
+	Shop shop;
+	
+	public long getProductId() {
+		return productId;
+	}
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public float getActualPrice() {
+		return actualPrice;
+	}
+	public void setActualPrice(float actualPrice) {
+		this.actualPrice = actualPrice;
+	}
+	public float getOfferPrice() {
+		return offerPrice;
+	}
+	public void setOfferPrice(float offerPrice) {
+		this.offerPrice = offerPrice;
+	}
+	public Shop getShop() {
+		return shop;
+	}
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+===============
+
+ 
+	
+	@Id
+	long shopId;
+	String shopName;
+	String ownerName;
+	String mobile;
+	String city;
+	String pincode;
+	
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user;
+	
+	@OneToMany(mappedBy="shop")
+	List<Product> products = new ArrayList<>();
+	
+	public long getShopId() {
+		return shopId;
+	}
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
+	}
+	public String getShopName() {
+		return shopName;
+	}
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+	public String getOwnerName() {
+		return ownerName;
+	}
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getPincode() {
+		return pincode;
+	}
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+	public List<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+=========================
+
+
+	@Id
+	private Long userId;
+	private String userName;
+	private String password;
+	
+	@ManyToOne
+	@JoinColumn(name = "roleId")
+	private Role role;
+	
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+===========================
+
+	
+	@Id
+	private Long roleId;
+	private String roleName;
+	
+	@OneToMany(mappedBy="role")
+	private List<User> users = new ArrayList<>();
+	
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	
+
+======================
+
+	DTO
+	private Long userId;
+	private String userName;
+	private String password;
+	private Role role;
+	
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+
+============================
+public class OffersResponse {
+	
+	private long timestamp;
+	private int status;
+	private String error;
+	private String message;
+	private String path;
+	private Object payLoad;
+	
+	public OffersResponse() {
+		this.timestamp = new Timestamp(new Date().getTime()).getTime();
+	}
+
+	public OffersResponse(long timestamp, int status, String error, String message, String path, Object payLoad) {
+		super();
+		this.timestamp = new Timestamp(new Date().getTime()).getTime();
+		this.status = status;
+		this.error = error;
+		this.message = message;
+		this.path = path;
+		this.payLoad = payLoad;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public Object getPayLoad() {
+		return payLoad;
+	}
+
+	public void setPayLoad(Object payLoad) {
+		this.payLoad = payLoad;
+	}
+
+	@Override
+	public String toString() {
+		return "YanResponse [timestamp=" + timestamp + ", status=" + status + ", error=" + error + ", message="
+				+ message + ", path=" + path + ", payLoad=" + payLoad + "]";
+	}
+	
+	
+
+}
+==========================
+
+
+## General
+error.internal.problem =
+
+thank.you= Thank You
+
+success.title=Success
+success.message=Thank You, Query returned successfully
+
+fail.title=Failure
+fail.message=Problem while performing operation.
+
+invalid.data = Invalid input
+delete.success = Deleted Successfully
+
+
+service.update= Service Updated Successfully
+service.save= Service Saved Successfully
+service.not.found=Service Not Found with given Id
+service.no= No Service's Found
+
+user.update= User Updated Successfully
+user.save= User Saved Successfully
+user.not.found=User Not Found with given Id
+user.no=No Users Found
+
 
 
