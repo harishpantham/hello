@@ -53,3 +53,39 @@ public class Sample {
 	}
 
 }
+=====================To Convert DTO to POJO and viceversa================
+	
+	
+
+	public static void main(String[] args) {
+		
+		String actual = "ProductDTO";
+		String convert = "Product";
+		
+		
+		
+		//System.out.println(str);
+		
+		
+		try {
+			Scanner scanner = new Scanner(new File("D:/Workspace/TodayOffers/src/main/java/com/today/offers/dto/ProductDTO.java"));
+			while(scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				if(line.contains("return")) {
+					String str2 = ""+line;
+					String str1 = str2.replace("return ", "");
+					String arr[] = str1.split(";");
+					
+					for(String s: arr) {
+						System.out.println(s);
+					}
+			//	System.out.println(scanner.nextLine());
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
