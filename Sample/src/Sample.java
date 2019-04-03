@@ -71,11 +71,12 @@ public class Sample {
 				if(line.contains("return")) {
 					String str = line.replace("return ", "").trim();
 					String arr[] = str.split(";");
+					String sactualObject = actualObject.substring(0,1).toLowerCase()+actualObject.substring(1);
+					String sconvertToObject = convertToObject.substring(0,1).toLowerCase()+convertToObject.substring(1);
+					 str2 ="private "+actualObject+" get"+actualObject+"("+actualObject+" "+sactualObject+", "+convertToObject+" "+sconvertToObject+") {";
+					
 					for(String word: arr) {
 						String variable =  word.substring(0,1).toUpperCase()+ word.substring(1);
-						String sactualObject = actualObject.substring(0,1).toLowerCase()+actualObject.substring(1);
-						String sconvertToObject = convertToObject.substring(0,1).toLowerCase()+convertToObject.substring(1);
-						 str2 ="private "+actualObject+" get"+actualObject+"("+convertToObject+" "+sconvertToObject+", "+actualObject+" "+sactualObject+") {";
 						String str1 = "if(!StringUtils.isEmpty("+sactualObject+".get"+variable+"())) {\n"+sconvertToObject+".set"+variable+"("+sactualObject+".get"+variable+"());"+"\n"+"}";
 						 finalString = finalString+str1+"\n";
 					
