@@ -57,35 +57,47 @@ public class Sample {
 	
 	
 
-	public static void main(String[] args) {
-		
-		String actual = "ProductDTO";
-		String convert = "Product";
-		
-		
-		
-		//System.out.println(str);
-		
-		
+	public class ConvertObjects {
+	
+	
+	public String getObject(String actualObject,String convertToObject,String filePath) {
+		String finalString = "";
+		String str2="";
 		try {
-			Scanner scanner = new Scanner(new File("D:/Workspace/TodayOffers/src/main/java/com/today/offers/dto/ProductDTO.java"));
+			//private Product getProduct(ProductDTO productDTO, Product product) {
+			Scanner scanner = new Scanner(new File(filePath));
 			while(scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				if(line.contains("return")) {
-					String str2 = ""+line;
-					String str1 = str2.replace("return ", "");
-					String arr[] = str1.split(";");
+					String str = line.replace("return ", "").trim();
+					String arr[] = str.split(";");
+					for(String word: arr) {
+						String variable =  word.substring(0,1).toUpperCase()+ word.substring(1);
+						String sactualObject = actualObject.substring(0,1).toLowerCase()+actualObject.substring(1);
+						String sconvertToObject = convertToObject.substring(0,1).toLowerCase()+convertToObject.substring(1);
+						 str2 ="private "+actualObject+" get"+actualObject+"("+convertToObject+" "+sconvertToObject+", "+actualObject+" "+sactualObject+") {";
+						String str1 = "if(!StringUtils.isEmpty("+sactualObject+".get"+variable+"())) {\n"+sconvertToObject+".set"+variable+"("+sactualObject+".get"+variable+"());"+"\n"+"}";
+						 finalString = finalString+str1+"\n";
 					
-					for(String s: arr) {
-						System.out.println(s);
-					}
-			//	System.out.println(scanner.nextLine());
+						}
 				}
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
+		return str2+"\n"+finalString;
+		
+	}
+
+	public static void main(String[] args) {
+		String actualObject = "Product";
+		String convertToObject = "ProductDTO";
+		ConvertObjects obj = new ConvertObjects();
+		String filePath = "D:/Workspace/TodayOffers/src/main/java/com/today/offers/dto/ProductDTO.java";
+		
+		System.out.println(obj.getObject(actualObject, convertToObject, filePath));
 	}
 	
+}
