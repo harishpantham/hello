@@ -53,16 +53,16 @@ public class Sample {
 	}
 
 }
-=====================To Convert DTO to POJO and viceversa================
+=====================Service Impl================
 	
+	public class ServiceImpl {
 	
-
-	public class ConvertObjects {
-	
-	
-	public String getObject(String actualObject,String convertToObject,String filePath) {
+public String getObject(String actualObject,String convertToObject) {
+		
+		
+		String filePath = "D:/Workspace/TodayOffers/src/main/java/com/today/offers/dto/ProductDTO.java";
 		String finalString = "";
-		String str2="";
+		String methodName="";
 		try {
 			//private Product getProduct(ProductDTO productDTO, Product product) {
 			Scanner scanner = new Scanner(new File(filePath));
@@ -73,11 +73,11 @@ public class Sample {
 					String arr[] = str.split(";");
 					String sactualObject = actualObject.substring(0,1).toLowerCase()+actualObject.substring(1);
 					String sconvertToObject = convertToObject.substring(0,1).toLowerCase()+convertToObject.substring(1);
-					 str2 ="private "+actualObject+" get"+actualObject+"("+actualObject+" "+sactualObject+", "+convertToObject+" "+sconvertToObject+") {";
+					 methodName ="        private "+actualObject+" get"+actualObject+"("+actualObject+" "+sactualObject+", "+convertToObject+" "+sconvertToObject+") {";
 					
 					for(String word: arr) {
 						String variable =  word.substring(0,1).toUpperCase()+ word.substring(1);
-						String str1 = "if(!StringUtils.isEmpty("+sactualObject+".get"+variable+"())) {\n"+sconvertToObject+".set"+variable+"("+sactualObject+".get"+variable+"());"+"\n"+"}";
+						String str1 = "        if(!StringUtils.isEmpty("+sconvertToObject+".get"+variable+"())) {\n        "+sactualObject+".set"+variable+"("+sconvertToObject+".get"+variable+"());"+"\n"+"        }\n";
 						 finalString = finalString+str1+"\n";
 					
 						}
@@ -88,17 +88,133 @@ public class Sample {
 			
 			e.printStackTrace();
 		}
-		return str2+"\n"+finalString;
+		return methodName+"\n"+finalString;
 		
 	}
 
-	public static void main(String[] args) {
-		String actualObject = "Product";
-		String convertToObject = "ProductDTO";
-		ConvertObjects obj = new ConvertObjects();
-		String filePath = "D:/Workspace/TodayOffers/src/main/java/com/today/offers/dto/ProductDTO.java";
-		
-		System.out.println(obj.getObject(actualObject, convertToObject, filePath));
+		public static void main(String args[]) {
+			String response = "OffersResponse";
+			String sresponse = "offersResponse";
+			String entity = "Product";
+			String sentity = "product";
+			
+			ServiceImpl impl = new ServiceImpl();
+			
+			System.out.println(
+					"@Service\r\n"+
+					"public class "+entity+"ServiceImpl implements "+entity+"ServiceI{\r\n" + 
+					"	\r\n" + 
+					"	@Autowired\r\n" + 
+					"	"+entity+"Repository "+sentity+"Repository;\r\n" + 
+					"	\r\n" + 
+					"	@Autowired\r\n" + 
+					"	Messages messageService;\r\n" + 
+					"\r\n" + 
+					"	@Override\r\n" + 
+					"	public "+response+" getAll"+entity+"s() {\r\n" + 
+					"\r\n" + 
+					"		List<"+entity+"> "+sentity+"List = "+sentity+"Repository.findAll();\r\n" + 
+					"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
+					"		if(!StringUtils.isEmpty("+sentity+"List)) {\r\n" + 
+					"			List<"+entity+"DTO> "+sentity+"DTOList = get"+entity+"DTOList("+sentity+"List);\r\n" + 
+					"			"+sresponse+".setMessage(messageService.getMessage(\"success.message\"));\r\n" + 
+					"			"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
+					"			"+sresponse+".setPayLoad("+sentity+"DTOList);\r\n" + 
+					"			return "+sresponse+";\r\n" + 
+					"		}\r\n" + 
+					"		else {\r\n" + 
+					"			"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".no\"));\r\n" + 
+					"			"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
+					"			return "+sresponse+";\r\n" + 
+					"		}\r\n" + 
+					"		\r\n" + 
+					"	}\r\n" + 
+					"\r\n" + 
+					impl.getObject("ProductDTO", "Product") +"\r\n" + 
+					"	@Override\r\n" + 
+					"	public "+response+" get"+entity+"ById(Long "+sentity+"Id) {\r\n" + 
+					"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
+					"		if(!StringUtils.isEmpty("+sentity+"Id)) {\r\n" + 
+					"			Optional<"+entity+"> optional"+entity+" = "+sentity+"Repository.findById("+sentity+"Id);\r\n" + 
+					"			if(optional"+entity+".isPresent()) {\r\n" + 
+					"				List<"+entity+"> "+sentity+"List = new ArrayList<>();\r\n" + 
+					"				"+entity+" "+sentity+" = optional"+entity+".get();\r\n" + 
+					"				"+sentity+"List.add("+sentity+");\r\n" + 
+					"				List<"+entity+"DTO> "+sentity+"DTOList = get"+entity+"DTOList("+sentity+"List);\r\n" + 
+					"				"+sresponse+".setMessage(\"success.message\");\r\n" + 
+					"				"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
+					"				"+sresponse+".setPayLoad("+sentity+"DTOList);\r\n" + 
+					"			}\r\n" + 
+					"			else {\r\n" + 
+					"				"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".no\"));\r\n" + 
+					"				"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
+					"			}\r\n" + 
+					"		}\r\n" + 
+					"		else {\r\n" + 
+					"			"+sresponse+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
+					"			"+sresponse+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
+					"		}\r\n" + 
+					"		\r\n" + 
+					"		return "+sresponse+";\r\n" + 
+					"	}\r\n" + 
+					"\r\n" + 
+					"	@Override\r\n" + 
+					"	public "+response+" save"+entity+"("+entity+"DTO "+sentity+"DTO) {\r\n" + 
+					"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
+					"		if("+sentity+"DTO != null) {\r\n" + 
+					"			"+entity+" "+sentity+" = new "+entity+"();\r\n" + 
+					"			"+sentity+" = get"+entity+"("+sentity+"DTO,"+sentity+");\r\n" + 
+					"			"+sentity+"Repository.save("+sentity+");\r\n" + 
+					"			"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
+					"			"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".save\"));\r\n" + 
+					"		}\r\n" + 
+					"		else {\r\n" + 
+					"			"+sresponse+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
+					"			"+sresponse+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
+					"		}\r\n" + 
+					"		return null;\r\n" + 
+					"	}\r\n" + 
+					"\r\n" + 
+					"	@Override\r\n" + 
+					"	public "+response+" update"+entity+"("+entity+"DTO "+sentity+"DTO) {\r\n" + 
+					"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
+					"		if("+sentity+"DTO !=null) {\r\n" + 
+					"			Optional<"+entity+"> optional"+entity+" = "+sentity+"Repository.findById("+sentity+"DTO.get"+entity+"Id());\r\n" + 
+					"			if(optional"+entity+".isPresent()) {\r\n" + 
+					"				"+entity+" "+sentity+" = get"+entity+"("+sentity+"DTO, optional"+entity+".get());\r\n" + 
+					"			    "+sentity+"Repository.save("+sentity+");\r\n" + 
+					"			    "+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
+					"			    "+sresponse+".setMessage(messageService.getMessage(\""+sentity+".update\"));\r\n" + 
+					"			}\r\n" + 
+					"			else {\r\n" + 
+					"				"+sresponse+".setStatus(HttpStatus.NOT_FOUND.value());\r\n" + 
+					"				"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".not.found\"));\r\n" + 
+					"			}\r\n" + 
+					"		}\r\n" + 
+					"		else {\r\n" + 
+					"			"+sresponse+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
+					"			"+sresponse+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
+					"		}\r\n" + 
+					"		return "+sresponse+";\r\n" + 
+					"	}\r\n" + 
+					"\r\n" + 
+					impl.getObject("Product", "ProductDTO")+ 
+					"\r\n" +
+					"	@Override\r\n" + 
+					"	public "+response+" delete"+entity+"(Long "+sentity+"Id) {\r\n" + 
+					"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
+					"		"+sentity+"Repository.deleteById("+sentity+"Id);\r\n" + 
+					"		"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".update\"));\r\n" + 
+					"		return "+sresponse+";\r\n" + 
+					"	}\r\n" + 
+					"	\r\n" + 
+					"}\r\n" + 
+					"");
+
+		}
 	}
+
+
+
+
 	
-}
