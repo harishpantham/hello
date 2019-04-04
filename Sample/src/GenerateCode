@@ -1,11 +1,49 @@
-package com.info;
+========create file==============
 
-class Hello{
+public class CreateFile {
+
+	public static void main(String args[]) {
+		
+		String entityName = "Product";
+		
+	//	String baseUrl ="D:/Workspace/TodayOffers/src/main/java/com/today/offers";
+		/*String baseUrl ="D:/Test/";
+		String controllerUrl = baseUrl+"/controller/"+entityName+"Controller.java";
+		String serviceIUrl = baseUrl+"/service/"+entityName+"ServiceI.java";
+		String serviceImplUrl = baseUrl+"/service/"+entityName+"ServiceImpl.java";
+		String repositoryUrl = baseUrl+"/repo/"+entityName+"Repository.java";
+		String dtoUrl = baseUrl+"/dto/"+entityName+"DTO.java";*/
+		
+		String projectName = "Test";
+		String directoryName="D";
+		String baseUrl= directoryName+":"+"/"+projectName;
+		String controllerDirUrl = baseUrl+"/controller";
+		String serviceDirUrl = baseUrl+"/service";
+		String repositoryDirUrl = baseUrl+"/repo";
+		String dtoDirUrl = baseUrl+"/dto";
+		
+		String[] urls = {controllerDirUrl,serviceDirUrl,repositoryDirUrl,dtoDirUrl};
+		Controller controller = new Controller();
+		ServiceI serviceI = new ServiceI();
+		ServiceImpl serviceImpl = new ServiceImpl();
+		
+		for(String url : urls) {
+			File file = new File(url);
+			file.mkdir();
+			/*PrintWriter writer = new PrintWriter(url);
+			writer.println(controller.printController());
+			writer.close();*/
+		} 
+		
+	}
+}
+=========================serviceI=======================
+
+public class ServiceI {
 	
+	public String printInterfaces() {
 
-		
-		
-		String entity = "User";
+		String entity = "Product";
 		String sentity = entity.toLowerCase();
 		String semicolon =";";
 		
@@ -15,25 +53,88 @@ class Hello{
 		String subinterface4 = "update"+entity+"("+entity+"DTO"+" "+sentity+"DTO"+")"+semicolon;
 		String subinterface5 = "delete"+entity+"(Long "+" "+sentity+"Id)"+semicolon;
 		
-		
 		/*String interface1 = "List<"+entity+"> "+ subinterface1;
 		String interface2 = "Optional<"+entity+"> "+subinterface2;
 		String interface3 = entity+" "+subinterface3;
 		String interface4 = entity+" "+subinterface4;
 		String interface5 = "void"+" "+subinterface5;*/
-		String interface1 ="YanResponse"+" "+subinterface1;
-		String interface2 ="YanResponse"+" "+subinterface2;
-		String interface3 ="YanResponse"+" "+subinterface3;
-		String interface4 ="YanResponse"+" "+subinterface4;
-		String interface5 ="YanResponse"+" "+subinterface5;
 		
-System.out.println(interface1);				
-System.out.println(interface2);			
-System.out.println(interface3);			
-System.out.println(interface4);			
-System.out.println(interface5);			
+		String interface1 ="OffersResponse"+" "+subinterface1;
+		String interface2 ="OffersResponse"+" "+subinterface2;
+		String interface3 ="OffersResponse"+" "+subinterface3;
+		String interface4 ="OffersResponse"+" "+subinterface4;
+		String interface5 ="OffersResponse"+" "+subinterface5;
+		
+		String printInterfaces = interface1+"\n"+interface2+"\n"+interface3+"\n"+interface4+"\n"+interface5;
+        System.out.println(printInterfaces);
+        
+		return printInterfaces;				
+   
+	
+	}
+	
+	public static void main(String args[]) {
+		
+	}
 
-System.out.println(
+}
+==============================controller===========================
+public class Controller {
+	
+	public String printController() {
+		
+
+		// TODO Auto-generated method stub
+
+		String entity = "Product";
+		String sentity = "product";
+		String responseName = "OffersResponse";
+		
+
+
+String printController = 
+		
+		"@RestController\r\n" + 
+		"public class "+entity+"Controller {\r\n" + 
+		"\r\n" + 
+		"    @Autowired\r\n" + 
+		"    "+entity+"ServiceI "+sentity+"ServiceI;\r\n" + 
+		"\r\n" + 
+		"    @GetMapping(\"/"+sentity+"s"+"\")\r\n" + 
+		"    public "+responseName+" "+"getAll"+entity+"s()"+" {\r\n" + 
+		"        return "+sentity+"ServiceI.getAll"+entity+"s"+";"+"\r\n" +
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @GetMapping(\"/"+sentity+"s/{"+sentity+"Id}\")\r\n" + 
+		"    public "+responseName+" get"+entity+"ById(@PathVariable Long "+sentity+"Id) {\r\n" + 
+		"        return "+sentity+"ServiceI.get"+entity+"ById("+sentity+"Id)"+";"+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @PostMapping(\"/"+sentity+"s\")\r\n" + 
+		"    public "+responseName+" save"+entity+"(@RequestBody "+entity+"DTO "+sentity+"DTO) {\r\n" + 
+		"        return "+sentity+"ServiceI.save"+entity+"("+sentity+"DTO)"+";"+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @PutMapping(\"/"+sentity+"s\")\r\n" +
+		"    public "+responseName+" update"+entity+"(@RequestBody "+entity+"DTO "+sentity+"DTO) {\r\n" + 
+		"        return "+sentity+"ServiceI.update"+entity+"("+sentity+"DTO)"+";"+"\r\n" + 
+		"    }\r\n" + 
+		"\r\n" + 
+		"    @DeleteMapping(\"/"+sentity+"s/{"+sentity+"Id}\")\r\n" + 
+		"    public void delete"+entity+"(@PathVariable Long "+sentity+"Id) {\r\n" + 
+		"        return "+sentity+"ServiceI.delete"+entity+"("+sentity+"Id)"+";"+"\r\n" + 
+		"    }\r\n" + 
+		"}";
+return printController;
+
+/******************to return the values in List type use following like List<User>**********************/
+
+/*String interface1 = "List<"+entity+"> "+ subinterface1;
+String interface2 = "Optional<"+entity+"> "+subinterface2;
+String interface3 = entity+" "+subinterface3;
+String interface4 = entity+" "+subinterface4;
+String interface5 = "void"+" "+subinterface5;
+System.out.println("
 		
 		"@RestController()\r\n" + 
 		"@RequestMapping(\"api\")\r\n" + 
@@ -67,473 +168,198 @@ System.out.println(
 		"        return "+sentity+"ServiceI.delete"+entity+"("+sentity+"Id)"+";"+"\r\n" + 
 		"    }\r\n" + 
 		"}");
+*/
 
-}
-
-==============Service Imple Generation==========
-
-
-
-	public static void main(String args[]) {
-		String response = "ProductsResponse";
-		String sresponse = "productsResponse";
-		String entity = "Product";
-		String sentity = "product";
 		
-		System.out.println("public class "+entity+"ServiceImpl implements "+entity+"ServiceI{\r\n" + 
-				"	\r\n" + 
-				"	@Autowired\r\n" + 
-				"	"+entity+"Repository "+sentity+"Repository;\r\n" + 
-				"	\r\n" + 
-				"	@Autowired\r\n" + 
-				"	Messages messageService;\r\n" + 
-				"\r\n" + 
-				"	@Override\r\n" + 
-				"	public "+response+" getAll"+entity+"s() {\r\n" + 
-				"\r\n" + 
-				"		List<"+entity+"> "+sentity+"List = "+sentity+"Repository.findAll();\r\n" + 
-				"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
-				"		if(!StringUtils.isEmpty("+sentity+"List)) {\r\n" + 
-				"			List<"+entity+"DTO> "+sentity+"DTOList = get"+entity+"DTOList("+sentity+"List);\r\n" + 
-				"			"+sresponse+".setMessage(messageService.getMessage(\"success.message\"));\r\n" + 
-				"			"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
-				"			"+sresponse+".setPayLoad("+sentity+"DTOList);\r\n" + 
-				"			return "+sresponse+";\r\n" + 
-				"		}\r\n" + 
-				"		else {\r\n" + 
-				"			"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".no\"));\r\n" + 
-				"			"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
-				"			return "+sresponse+";\r\n" + 
-				"		}\r\n" + 
-				"		\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	private List<"+entity+"DTO> get"+entity+"DTOList(List<"+entity+"> "+sentity+"List) {\r\n" + 
-				"		List<"+entity+"DTO> "+sentity+"DTOList = new ArrayList<>();\r\n" + 
-				"		for("+entity+" "+sentity+" : "+sentity+"List) {\r\n" + 
-				"			"+entity+"DTO "+sentity+"DTO = new "+entity+"DTO();\r\n" + 
-				"			"+sentity+"DTO.set"+entity+"Id("+sentity+".get"+entity+"Id());\r\n" + 
-				"			"+sentity+"DTO.set"+entity+"Name("+sentity+".get"+entity+"Name());\r\n" + 
-				"			"+sentity+"DTO.setPassword("+sentity+".getPassword());\r\n" + 
-				"			"+sentity+"DTO.setRole("+sentity+".getRole());\r\n" + 
-				"		}\r\n" + 
-				"		return "+sentity+"DTOList;\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	@Override\r\n" + 
-				"	public "+response+" get"+entity+"ById(Long "+sentity+"Id) {\r\n" + 
-				"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
-				"		if(!StringUtils.isEmpty("+sentity+"Id)) {\r\n" + 
-				"			Optional<"+entity+"> optional"+entity+" = "+sentity+"Repository.findById("+sentity+"Id);\r\n" + 
-				"			if(optional"+entity+".isPresent()) {\r\n" + 
-				"				List<"+entity+"> "+sentity+"List = new ArrayList<>();\r\n" + 
-				"				"+entity+" "+sentity+" = optional"+entity+".get();\r\n" + 
-				"				"+sentity+"List.add("+sentity+");\r\n" + 
-				"				List<"+entity+"DTO> "+sentity+"DTOList = get"+entity+"DTOList("+sentity+"List);\r\n" + 
-				"				"+sresponse+".setMessage(\"success.message\");\r\n" + 
-				"				"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
-				"				"+sresponse+".setPayLoad("+sentity+"DTOList);\r\n" + 
-				"			}\r\n" + 
-				"			else {\r\n" + 
-				"				"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".no\"));\r\n" + 
-				"				"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
-				"			}\r\n" + 
-				"		}\r\n" + 
-				"		else {\r\n" + 
-				"			"+sresponse+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
-				"			"+sresponse+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
-				"		}\r\n" + 
-				"		\r\n" + 
-				"		return "+sresponse+";\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	@Override\r\n" + 
-				"	public "+response+" save"+entity+"("+entity+"DTO "+sentity+"DTO) {\r\n" + 
-				"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
-				"		if("+sentity+"DTO != null) {\r\n" + 
-				"			"+entity+" "+sentity+" = new "+entity+"();\r\n" + 
-				"			"+sentity+" = get"+entity+"("+sentity+"DTO,"+sentity+");\r\n" + 
-				"			"+sentity+"Repository.save("+sentity+");\r\n" + 
-				"			"+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
-				"			"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".save\"));\r\n" + 
-				"		}\r\n" + 
-				"		else {\r\n" + 
-				"			"+sresponse+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
-				"			"+sresponse+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
-				"		}\r\n" + 
-				"		return null;\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	@Override\r\n" + 
-				"	public "+response+" update"+entity+"("+entity+"DTO "+sentity+"DTO) {\r\n" + 
-				"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
-				"		if("+sentity+"DTO !=null) {\r\n" + 
-				"			Optional<"+entity+"> optional"+entity+" = "+sentity+"Repository.findById("+sentity+"DTO.get"+entity+"Id());\r\n" + 
-				"			if(optional"+entity+".isPresent()) {\r\n" + 
-				"				"+entity+" "+sentity+" = get"+entity+"("+sentity+"DTO, optional"+entity+".get());\r\n" + 
-				"			    "+sentity+"Repository.save("+sentity+");\r\n" + 
-				"			    "+sresponse+".setStatus(HttpStatus.OK.value());\r\n" + 
-				"			    "+sresponse+".setMessage(messageService.getMessage(\""+sentity+".update\"));\r\n" + 
-				"			}\r\n" + 
-				"			else {\r\n" + 
-				"				"+sresponse+".setStatus(HttpStatus.NOT_FOUND.value());\r\n" + 
-				"				"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".not.found\"));\r\n" + 
-				"			}\r\n" + 
-				"		}\r\n" + 
-				"		else {\r\n" + 
-				"			"+sresponse+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
-				"			"+sresponse+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
-				"		}\r\n" + 
-				"		return "+sresponse+";\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	private "+entity+" get"+entity+"("+entity+"DTO "+sentity+"DTO, "+entity+" "+sentity+") {\r\n" + 
-				"\r\n" + 
-				"		if(!StringUtils.isEmpty("+sentity+"DTO.get"+entity+"Name())) {\r\n" + 
-				"			"+sentity+".set"+entity+"Name("+sentity+"DTO.get"+entity+"Name());\r\n" + 
-				"		}\r\n" + 
-				"		if(!StringUtils.isEmpty("+sentity+"DTO.getPassword())) {\r\n" + 
-				"			"+sentity+".setPassword("+sentity+"DTO.getPassword());\r\n" + 
-				"		}\r\n" + 
-				"		return "+sentity+";\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	@Override\r\n" + 
-				"	public "+response+" delete"+entity+"(Long "+sentity+"Id) {\r\n" + 
-				"		"+response+" "+sresponse+" = new "+response+"();\r\n" + 
-				"		"+sentity+"Repository.deleteById("+sentity+"Id);\r\n" + 
-				"		"+sresponse+".setMessage(messageService.getMessage(\""+sentity+".update\"));\r\n" + 
-				"		return "+sresponse+";\r\n" + 
-				"	}\r\n" + 
-				"	\r\n" + 
-				"}\r\n" + 
-				"");
-
 	}
+
+	public static void main(String[] args) {}
+	}
+
+
+==========================================ServiceImpl================================================
+
+public class ServiceImpl {
 	
-====================================================
+public String getObject(String actualObject,String convertToObject) {
+		
+		
+		String filePath = "D:/Workspace/TodayOffers/src/main/java/com/today/offers/dto/ProductDTO.java";
+		String finalString = "";
+		String methodName="";
+		try {
+			
+			Scanner scanner = new Scanner(new File(filePath));
+			while(scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				if(line.contains("return")) {
+					String str = line.replace("return ", "").trim();
+					String arr[] = str.split(";");
+					String sactualObject = actualObject.substring(0,1).toLowerCase()+actualObject.substring(1);
+					String sconvertToObject = convertToObject.substring(0,1).toLowerCase()+convertToObject.substring(1);
+					 methodName ="        private "+actualObject+" get"+actualObject+"("+actualObject+" "+sactualObject+", "+convertToObject+" "+sconvertToObject+") {";
+					
+					for(String word: arr) {
+						String variable =  word.substring(0,1).toUpperCase()+ word.substring(1);
+						String str1 = "        if(!StringUtils.isEmpty("+sconvertToObject+".get"+variable+"())) {\n        "+sactualObject+".set"+variable+"("+sconvertToObject+".get"+variable+"());"+"\n"+"        }\n";
+						 finalString = finalString+str1+"\n";
+					
+						}
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		return methodName+"\n"+finalString;
+		
+	}
 
+public String printServiceImpl() {
 
+	String responseName = "OffersResponse";
+	String sresponseName = "offersResponse";
+	String entity = "Product";
+	String sentity = "product";
 	
-	@Id
-	long productId;
-	String productName;
-	String startDate;
-	String endDate;
-	float actualPrice;
-	float offerPrice;
-	@ManyToOne
-	@JoinColumn(name = "shopId")
-	Shop shop;
-	
-	public long getProductId() {
-		return productId;
-	}
-	public void setProductId(long productId) {
-		this.productId = productId;
-	}
-	public String getProductName() {
-		return productName;
-	}
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	public float getActualPrice() {
-		return actualPrice;
-	}
-	public void setActualPrice(float actualPrice) {
-		this.actualPrice = actualPrice;
-	}
-	public float getOfferPrice() {
-		return offerPrice;
-	}
-	public void setOfferPrice(float offerPrice) {
-		this.offerPrice = offerPrice;
-	}
-	public Shop getShop() {
-		return shop;
-	}
-	public void setShop(Shop shop) {
-		this.shop = shop;
-	}
-
-===============
-
- 
-	
-	@Id
-	long shopId;
-	String shopName;
-	String ownerName;
-	String mobile;
-	String city;
-	String pincode;
-	
-	@ManyToOne
-	@JoinColumn(name="userId")
-	private User user;
-	
-	@OneToMany(mappedBy="shop")
-	List<Product> products = new ArrayList<>();
-	
-	public long getShopId() {
-		return shopId;
-	}
-	public void setShopId(long shopId) {
-		this.shopId = shopId;
-	}
-	public String getShopName() {
-		return shopName;
-	}
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
-	public String getOwnerName() {
-		return ownerName;
-	}
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getPincode() {
-		return pincode;
-	}
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
-	public List<Product> getProducts() {
-		return products;
-	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-=========================
-
-
-	@Id
-	private Long userId;
-	private String userName;
-	private String password;
-	
-	@ManyToOne
-	@JoinColumn(name = "roleId")
-	private Role role;
-	
-	public Long getUserId() {
-		return userId;
-	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-===========================
-
-	
-	@Id
-	private Long roleId;
-	private String roleName;
-	
-	@OneToMany(mappedBy="role")
-	private List<User> users = new ArrayList<>();
-	
-	public Long getRoleId() {
-		return roleId;
-	}
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
-	public String getRoleName() {
-		return roleName;
-	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-	
-
-======================
-
-	DTO
-	private Long userId;
-	private String userName;
-	private String password;
-	private Role role;
-	
-	public Long getUserId() {
-		return userId;
-	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-
-============================
-public class OffersResponse {
-	
-	private long timestamp;
-	private int status;
-	private String error;
-	private String message;
-	private String path;
-	private Object payLoad;
-	
-	public OffersResponse() {
-		this.timestamp = new Timestamp(new Date().getTime()).getTime();
-	}
-
-	public OffersResponse(long timestamp, int status, String error, String message, String path, Object payLoad) {
-		super();
-		this.timestamp = new Timestamp(new Date().getTime()).getTime();
-		this.status = status;
-		this.error = error;
-		this.message = message;
-		this.path = path;
-		this.payLoad = payLoad;
-	}
-
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public Object getPayLoad() {
-		return payLoad;
-	}
-
-	public void setPayLoad(Object payLoad) {
-		this.payLoad = payLoad;
-	}
-
-	@Override
-	public String toString() {
-		return "YanResponse [timestamp=" + timestamp + ", status=" + status + ", error=" + error + ", message="
-				+ message + ", path=" + path + ", payLoad=" + payLoad + "]";
-	}
+	ServiceImpl impl = new ServiceImpl();
 	
 	
+	String str=
+			"@Service\r\n"+
+			"public class "+entity+"ServiceImpl implements "+entity+"ServiceI{\r\n" + 
+			"	\r\n" + 
+			"	@Autowired\r\n" + 
+			"	"+entity+"Repository "+sentity+"Repository;\r\n" + 
+			"	\r\n" + 
+			"	@Autowired\r\n" + 
+			"	Messages messageService;\r\n" + 
+			"\r\n" + 
+			"	@Override\r\n" + 
+			"	public "+responseName+" getAll"+entity+"s() {\r\n" + 
+			"\r\n" + 
+			"		List<"+entity+"> "+sentity+"List = "+sentity+"Repository.findAll();\r\n" + 
+			"		"+responseName+" "+sresponseName+" = new "+responseName+"();\r\n" + 
+			"		if(!StringUtils.isEmpty("+sentity+"List)) {\r\n" + 
+			"			List<"+entity+"DTO> "+sentity+"DTOList = get"+entity+"DTOList("+sentity+"List);\r\n" + 
+			"			"+sresponseName+".setMessage(messageService.getMessage(\"success.message\"));\r\n" + 
+			"			"+sresponseName+".setStatus(HttpStatus.OK.value());\r\n" + 
+			"			"+sresponseName+".setPayLoad("+sentity+"DTOList);\r\n" + 
+			"			return "+sresponseName+";\r\n" + 
+			"		}\r\n" + 
+			"		else {\r\n" + 
+			"			"+sresponseName+".setMessage(messageService.getMessage(\""+sentity+".no\"));\r\n" + 
+			"			"+sresponseName+".setStatus(HttpStatus.OK.value());\r\n" + 
+			"			return "+sresponseName+";\r\n" + 
+			"		}\r\n" + 
+			"		\r\n" + 
+			"	}\r\n" + 
+			"\r\n" + 
+			impl.getObject("ProductDTO", "Product") +"\r\n" + 
+			"	@Override\r\n" + 
+			"	public "+responseName+" get"+entity+"ById(Long "+sentity+"Id) {\r\n" + 
+			"		"+responseName+" "+sresponseName+" = new "+responseName+"();\r\n" + 
+			"		if(!StringUtils.isEmpty("+sentity+"Id)) {\r\n" + 
+			"			Optional<"+entity+"> optional"+entity+" = "+sentity+"Repository.findById("+sentity+"Id);\r\n" + 
+			"			if(optional"+entity+".isPresent()) {\r\n" + 
+			"				List<"+entity+"> "+sentity+"List = new ArrayList<>();\r\n" + 
+			"				"+entity+" "+sentity+" = optional"+entity+".get();\r\n" + 
+			"				"+sentity+"List.add("+sentity+");\r\n" + 
+			"				List<"+entity+"DTO> "+sentity+"DTOList = get"+entity+"DTOList("+sentity+"List);\r\n" + 
+			"				"+sresponseName+".setMessage(\"success.message\");\r\n" + 
+			"				"+sresponseName+".setStatus(HttpStatus.OK.value());\r\n" + 
+			"				"+sresponseName+".setPayLoad("+sentity+"DTOList);\r\n" + 
+			"			}\r\n" + 
+			"			else {\r\n" + 
+			"				"+sresponseName+".setMessage(messageService.getMessage(\""+sentity+".no\"));\r\n" + 
+			"				"+sresponseName+".setStatus(HttpStatus.OK.value());\r\n" + 
+			"			}\r\n" + 
+			"		}\r\n" + 
+			"		else {\r\n" + 
+			"			"+sresponseName+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
+			"			"+sresponseName+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
+			"		}\r\n" + 
+			"		\r\n" + 
+			"		return "+sresponseName+";\r\n" + 
+			"	}\r\n" + 
+			"\r\n" + 
+			"	@Override\r\n" + 
+			"	public "+responseName+" save"+entity+"("+entity+"DTO "+sentity+"DTO) {\r\n" + 
+			"		"+responseName+" "+sresponseName+" = new "+responseName+"();\r\n" + 
+			"		if("+sentity+"DTO != null) {\r\n" + 
+			"			"+entity+" "+sentity+" = new "+entity+"();\r\n" + 
+			"			"+sentity+" = get"+entity+"("+sentity+"DTO,"+sentity+");\r\n" + 
+			"			"+sentity+"Repository.save("+sentity+");\r\n" + 
+			"			"+sresponseName+".setStatus(HttpStatus.OK.value());\r\n" + 
+			"			"+sresponseName+".setMessage(messageService.getMessage(\""+sentity+".save\"));\r\n" + 
+			"		}\r\n" + 
+			"		else {\r\n" + 
+			"			"+sresponseName+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
+			"			"+sresponseName+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
+			"		}\r\n" + 
+			"		return null;\r\n" + 
+			"	}\r\n" + 
+			"\r\n" + 
+			"	@Override\r\n" + 
+			"	public "+responseName+" update"+entity+"("+entity+"DTO "+sentity+"DTO) {\r\n" + 
+			"		"+responseName+" "+sresponseName+" = new "+responseName+"();\r\n" + 
+			"		if("+sentity+"DTO !=null) {\r\n" + 
+			"			Optional<"+entity+"> optional"+entity+" = "+sentity+"Repository.findById("+sentity+"DTO.get"+entity+"Id());\r\n" + 
+			"			if(optional"+entity+".isPresent()) {\r\n" + 
+			"				"+entity+" "+sentity+" = get"+entity+"("+sentity+"DTO, optional"+entity+".get());\r\n" + 
+			"			    "+sentity+"Repository.save("+sentity+");\r\n" + 
+			"			    "+sresponseName+".setStatus(HttpStatus.OK.value());\r\n" + 
+			"			    "+sresponseName+".setMessage(messageService.getMessage(\""+sentity+".update\"));\r\n" + 
+			"			}\r\n" + 
+			"			else {\r\n" + 
+			"				"+sresponseName+".setStatus(HttpStatus.NOT_FOUND.value());\r\n" + 
+			"				"+sresponseName+".setMessage(messageService.getMessage(\""+sentity+".not.found\"));\r\n" + 
+			"			}\r\n" + 
+			"		}\r\n" + 
+			"		else {\r\n" + 
+			"			"+sresponseName+".setStatus(HttpStatus.BAD_REQUEST.value());\r\n" + 
+			"			"+sresponseName+".setMessage(messageService.getMessage(\"invalid.data\"));\r\n" + 
+			"		}\r\n" + 
+			"		return "+sresponseName+";\r\n" + 
+			"	}\r\n" + 
+			"\r\n" + 
+			impl.getObject("Product", "ProductDTO")+ 
+			"\r\n" +
+			"	@Override\r\n" + 
+			"	public "+responseName+" delete"+entity+"(Long "+sentity+"Id) {\r\n" + 
+			"		"+responseName+" "+sresponseName+" = new "+responseName+"();\r\n" + 
+			"		"+sentity+"Repository.deleteById("+sentity+"Id);\r\n" + 
+			"		"+sresponseName+".setMessage(messageService.getMessage(\""+sentity+".update\"));\r\n" + 
+			"		return "+sresponseName+";\r\n" + 
+			"	}\r\n" + 
+			"	\r\n" + 
+			"}\r\n" + 
+			"";
+	System.out.println(str);
+	return str;
+	
+
+
 
 }
-==========================
+		public static void main(String args[]) {
+			
+		}
+	}
 
 
-## General
-error.internal.problem =
-
-thank.you= Thank You
-
-success.title=Success
-success.message=Thank You, Query returned successfully
-
-fail.title=Failure
-fail.message=Problem while performing operation.
-
-invalid.data = Invalid input
-delete.success = Deleted Successfully
+===========================================Properties.java===============================
 
 
-service.update= Service Updated Successfully
-service.save= Service Saved Successfully
-service.not.found=Service Not Found with given Id
-service.no= No Service's Found
 
-user.update= User Updated Successfully
-user.save= User Saved Successfully
-user.not.found=User Not Found with given Id
-user.no=No Users Found
+public final class Properties {
 
+	public static final String entity = "Product";
+	public static final String sentity = "product";
+	public static final String responseName = "OffersResponse";
+	public static final String sresponseName = "offersResponse";
+}
 
+	
 
